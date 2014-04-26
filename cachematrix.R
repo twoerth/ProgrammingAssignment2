@@ -32,23 +32,23 @@ makeCacheMatrix <- function(x = matrix()) {
 ## Given an object returned by makeCacheMatrix, calculate the inverse and cache it for further calls.
 ## If a cached inverse has already been calculated on the wrapped matrix, the cached version is returned.
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-		
-		inv <- x$getinverse
-		
-		if( ! is.null( inv ) ) {
-			## The wrapped matrix has a non NULL inverse
-			message( "cache hit" )
-			return inv
-		}
-		
-		## Calculate the inverse using solve
-		## TODO: handle special cases more carefully, not all matrices can be inverted.
-		inv <- solve( x$get() )
+	## Return a matrix that is the inverse of 'x'
 
-		## Cache the result of solve()
-		x$setinverse( inv )
+	inv <- x$getinverse
 
-		## return the inverse
-		inv
+	if( ! is.null( inv ) ) {
+		## The wrapped matrix has a non NULL inverse
+		message( "cache hit" )
+		return inv
+	}
+
+	## Calculate the inverse using solve
+	## TODO: handle special cases more carefully, not all matrices can be inverted.
+	inv <- solve( x$get() )
+
+	## Cache the result of solve()
+	x$setinverse( inv )
+
+	## return the inverse
+	inv
 }
